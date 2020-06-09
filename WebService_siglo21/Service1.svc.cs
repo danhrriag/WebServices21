@@ -1,6 +1,9 @@
-﻿using System;
+﻿using BLL;
+using DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
@@ -12,22 +15,17 @@ namespace WebService_siglo21
     // NOTE: para iniciar el Cliente de prueba WCF para probar este servicio, seleccione Service1.svc o Service1.svc.cs en el Explorador de soluciones e inicie la depuración.
     public class Service1 : IService1
     {
-        public string GetData(int value)
+    
+        public  List<PERSONA>LoginUsuario(string rut, string pass)
         {
-            return string.Format("You entered: {0}", value);
+            Persona p = new Persona();
+            return p.LoginUsuario(rut,pass);
         }
 
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
+        public List<CAJA> listarCaja()
         {
-            if (composite == null)
-            {
-                throw new ArgumentNullException("composite");
-            }
-            if (composite.BoolValue)
-            {
-                composite.StringValue += "Suffix";
-            }
-            return composite;
+            Caja c = new Caja();
+            return c.listarCaja();
         }
     }
 }

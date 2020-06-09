@@ -47,6 +47,7 @@
     <Compile Include="Caja.cs" />
     <Compile Include="Categoria.cs" />
     <Compile Include="Ciudad.cs" />
+    <Compile Include="CommonBC.cs" />
     <Compile Include="Cuadratura.cs" />
     <Compile Include="DetalleOrdenCompra.cs" />
     <Compile Include="DetallePedido.cs" />
@@ -74,6 +75,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{79bcf4ce-25b4-48bd-b236-60ce99ccf95d}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,6 +1,8 @@
-﻿using Oracle.ManagedDataAccess.Client;
+﻿using DAL;
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +11,7 @@ namespace BLL
 {
     public class Persona
     {
-        OracleConnection ora = new OracleConnection("USER ID= SIGLO21 ;PASSWORD= duoc ;DATA SOURCE= localhost ;");
+        OracleConnection ora = new OracleConnection("USER ID= siglo21 ;PASSWORD= duoc ;DATA SOURCE= localhost ;");
 
         private string rUT_PERSONA;
 
@@ -92,6 +94,40 @@ namespace BLL
             this.iD_ROL = iD_ROL;
         }
 
+        public List<PERSONA> LoginUsuario(string rut, string pass)
+        {
+            List<PERSONA> usuarios = null;
+           
+                ora.Open();
+                OracleCommand comand = new OracleCommand("SP_VALIDAR_USUARIO", ora);
+                comand.CommandType = System.Data.CommandType.StoredProcedure;
+                comand.Parameters.Add("usuario", OracleDbType.RefCursor).Direction = System.Data.ParameterDirection.Output;
+                comand.Parameters.Add("username", OracleDbType.Varchar2).Value = rut;
+                comand.Parameters.Add("contrasena", OracleDbType.Varchar2).Value = pass;
+                OracleDataAdapter da = new OracleDataAdapter(comand);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                PERSONA p = new PERSONA();
+                if (ds.Tables.Count > 0)
+                {
+                    DataTable dt = ds.Tables[0];
+                    usuarios = (from DataRow row in dt.Rows
+                                select new PERSONA
+                                {
+                                    RUT_PERSONA = row["RUT_PERSONA"].ToString(),
+                                    NOMBRE =     row["NOMBRE"].ToString(),
+                                    APELLIDO = row["APELLIDO"].ToString(),
+                                    CORREO = row["CORREO"].ToString(),
+                                    ESTADO = row["ESTADO"].ToString(),
+                                    CONTRASENA = row["CONTRASENA"].ToString(),
+                                    TELEFONO = row["TELEFONO"].ToString(),
+                                    ID_ROL =  short.Parse(row["ID_ROL"].ToString()),                                    
+                                }).ToList();
 
+                }
+                ora.Close();
+                return usuarios;
+           
+        }
     }
 }

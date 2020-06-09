@@ -1,13 +1,15 @@
-﻿using Oracle.ManagedDataAccess.Client;
+﻿using DAL;
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BLL
 {
-    class Caja
+    public  class Caja
     {
         OracleConnection ora = new OracleConnection("USER ID= SIGLO21 ;PASSWORD= duoc ;DATA SOURCE= localhost ;");
 
@@ -50,5 +52,29 @@ namespace BLL
 
 
 
+        public List<CAJA> listarCaja()
+        {
+            List<CAJA> caja = null;
+            ora.Open();
+            OracleCommand comando = new OracleCommand("SP_LISTAR_CAJA", ora);
+            comando.CommandType = System.Data.CommandType.StoredProcedure;
+            comando.Parameters.Add("cajas", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
+            OracleDataAdapter da = new OracleDataAdapter(comando);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            if (ds.Tables.Count > 0)
+            {
+                DataTable dt = ds.Tables[0];
+                caja = (from DataRow row in dt.Rows
+                        select new CAJA
+                        {
+                            ID_CAJA = short.Parse(row["ID_CAJA"].ToString()),
+                            ESTADO = row["ESTADO"].ToString(),
+                            DESCRIPCION = row["DESCRIPCION"].ToString(),
+                        }).ToList();
+            }
+            ora.Close();
+            return caja;
+        }
     }
 }
