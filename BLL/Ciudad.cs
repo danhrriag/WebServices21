@@ -39,14 +39,11 @@ namespace BLL
         {
 
         }
-
         public Ciudad(int iD_CIUDAD, string nOMBRECIUDAD, string eSTADO)
         {
             this.iD_CIUDAD = iD_CIUDAD;
             this.nOMBRECIUDAD = nOMBRECIUDAD;
             this.eSTADO = eSTADO;
         }
-
-
     }
 }

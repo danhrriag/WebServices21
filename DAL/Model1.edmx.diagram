@@ -4,46 +4,45 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7c69b7f9d65340449513fa47fd89ee10" Name="Diagram1">
-        <EntityTypeShape EntityType="Model.CAJA" Width="1.5" PointX="6" PointY="12.5" IsExpanded="true" />
+      <Diagram DiagramId="ca9786efcd424ec8a6c40f58a1139d27" Name="Diagram1" ZoomLevel="91">
+        <EntityTypeShape EntityType="Model.APERTURACAJA" Width="1.5" PointX="5.25" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.CAJA" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.CATEGORIA" Width="1.5" PointX="5.25" PointY="1.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.CIUDAD" Width="1.5" PointX="1.5" PointY="22.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.CUADRATURA" Width="1.5" PointX="8.25" PointY="13.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.DETALLEORDENCOMPRA" Width="1.5" PointX="10.25" PointY="19.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.DETALLEPEDIDO" Width="1.5" PointX="9.75" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.DETALLERECETA" Width="1.5" PointX="12" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.DIRECCION" Width="1.5" PointX="1.5" PointY="25.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.DISPONIBILIDADMESA" Width="1.5" PointX="7.5" PointY="21.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.GARZON" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.INSUMO" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.MESA" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.MOVIMIENTO" Width="1.5" PointX="5.25" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.MOVIMIENTOCAJA" Width="1.5" PointX="8.25" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.ORDENDECOMPRA" Width="1.5" PointX="6" PointY="26.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.PAGO" Width="1.5" PointX="6" PointY="15.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.PEDIDO" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.PEDIDOINDIVIDUAL" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.PERSONA" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.PRODUCTO" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.PROVEEDOR" Width="1.5" PointX="3.75" PointY="25.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.RECETA" Width="1.5" PointX="9.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.RESERVA" Width="1.5" PointX="5.25" PointY="21.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.ROL" Width="1.5" PointX="0.75" PointY="9.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.SUCURSAL" Width="1.5" PointX="3.75" PointY="28.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.CUADRATURA" Width="1.5" PointX="10.5" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.DETALLEORDENCOMPRA" Width="1.5" PointX="8.25" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.DETALLEPEDIDO" Width="1.5" PointX="9.75" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.DETALLERECETA" Width="1.5" PointX="13" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.DISPONIBILIDADMESA" Width="1.5" PointX="7.5" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.GARZON" Width="1.5" PointX="3" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.INSUMO" Width="1.5" PointX="6" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MESA" Width="1.5" PointX="3" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MOVIMIENTO" Width="1.5" PointX="8.25" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MOVIMIENTOCAJA" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ORDENDECOMPRA" Width="1.5" PointX="3" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PAGO" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PEDIDO" Width="1.5" PointX="5.25" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PEDIDOINDIVIDUAL" Width="1.5" PointX="7.5" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PERSONA" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PRODUCTO" Width="1.5" PointX="7.5" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PROVEEDOR" Width="1.5" PointX="0.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.RECETA" Width="1.5" PointX="9.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.RESERVA" Width="1.5" PointX="5.25" PointY="24.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ROL" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.SUCURSAL" Width="1.5" PointX="0.75" PointY="17" IsExpanded="true" />
+        <AssociationConnector Association="Model.APERTURACAJA_CAJA_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.APERTURACAJA_PERSONA_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.CUADRATURA_APERTURACAJA_FK" ManuallyRouted="false" />
         <AssociationConnector Association="Model.CUADRATURA_CAJA_FK" ManuallyRouted="false" />
         <AssociationConnector Association="Model.MOVIMIENTOCAJA_CAJA_FK" ManuallyRouted="false" />
         <AssociationConnector Association="Model.PRODUCTO_CATEGORIA_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.DIRECCION_CIUDAD_FK" ManuallyRouted="false" />
         <AssociationConnector Association="Model.DETALLEOC_INSUMO_FK" ManuallyRouted="false" />
         <AssociationConnector Association="Model.DETALLEOC_OC_FK" ManuallyRouted="false" />
         <AssociationConnector Association="Model.DETALLEPEDIDO_PEDIDOINDIV_FK" ManuallyRouted="false" />
         <AssociationConnector Association="Model.DETALLEPEDIDO_PRODUCTO_FK" ManuallyRouted="false" />
         <AssociationConnector Association="Model.DETALLERECETA_INSUMO_FK" ManuallyRouted="false" />
         <AssociationConnector Association="Model.DETALLERECETA_RECETA_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.PROVEEDOR_DIRECCION_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.SUCURSAL_DIRECCION_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.DISPOMESA_MESA_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.DISPOMESA_RESERVA_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.DISPONIBILIDADMESA_MESA_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.DISPONIBILIDADMESA_RESERVA_FK" ManuallyRouted="false" />
         <AssociationConnector Association="Model.PEDIDO_GARZON_FK" ManuallyRouted="false" />
         <AssociationConnector Association="Model.MOVIMIENTO_INSUMO_FK" ManuallyRouted="false" />
         <AssociationConnector Association="Model.PEDIDO_MESA_FK" ManuallyRouted="false" />

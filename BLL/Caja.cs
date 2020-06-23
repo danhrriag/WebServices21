@@ -21,7 +21,6 @@ namespace BLL
             set { iD_CAJA = value; }
         }
 
-
         private string eSTADO;
 
         public string ESTADO
@@ -49,8 +48,6 @@ namespace BLL
             this.eSTADO = eSTADO;
             this.dESCRIPCION = dESCRIPCION;
         }
-
-
 
         public List<CAJA> listarCaja()
         {
