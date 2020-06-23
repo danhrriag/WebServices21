@@ -5,16 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Model.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="APERTURACAJA">
-          <Key>
-            <PropertyRef Name="ID_APERTURA" />
-          </Key>
-          <Property Name="ID_APERTURA" Type="number" Precision="9" Scale="0" Nullable="false" />
-          <Property Name="MONTO" Type="float" Precision="9" Scale="0" Nullable="false" />
-          <Property Name="FECHAYHORA" Type="date" Nullable="false" />
-          <Property Name="RUT_PERSONA" Type="varchar2" MaxLength="10" Nullable="false" />
-          <Property Name="ID_CAJA" Type="number" Precision="4" Scale="0" Nullable="false" />
-        </EntityType>
         <EntityType Name="CAJA">
           <Key>
             <PropertyRef Name="ID_CAJA" />
@@ -31,17 +21,24 @@
           <Property Name="NOMBRECATEGORIA" Type="varchar2" MaxLength="50" Nullable="false" />
           <Property Name="ESTADO" Type="char" MaxLength="1" Nullable="false" />
         </EntityType>
+        <EntityType Name="CIUDAD">
+          <Key>
+            <PropertyRef Name="ID_CIUDAD" />
+          </Key>
+          <Property Name="ID_CIUDAD" Type="number" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="NOMBRECIUDAD" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="ESTADO" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
         <EntityType Name="CUADRATURA">
           <Key>
             <PropertyRef Name="ID_CUADRATURA" />
           </Key>
           <Property Name="ID_CUADRATURA" Type="number" Precision="9" Scale="0" Nullable="false" />
-          <Property Name="MONTOESPERADO" Type="float" Precision="9" Scale="0" Nullable="false" />
-          <Property Name="MONTOREAL" Type="float" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="MONTOESPERADO" Type="number" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="MONTOREAL" Type="number" Precision="9" Scale="0" Nullable="false" />
           <Property Name="FECHA" Type="date" Nullable="false" />
           <Property Name="ESTADO" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="ID_CAJA" Type="number" Precision="4" Scale="0" Nullable="false" />
-          <Property Name="ID_APERTURA" Type="number" Precision="9" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="DETALLEORDENCOMPRA">
           <Key>
@@ -51,9 +48,9 @@
           <Property Name="DESCRIPCION" Type="varchar2" MaxLength="100" Nullable="false" />
           <Property Name="FECHA_ENTREGA" Type="date" Nullable="false" />
           <Property Name="CANTIDAD" Type="number" Precision="3" Scale="0" Nullable="false" />
-          <Property Name="PRECIOUNITARIO" Type="float" Precision="9" Scale="0" Nullable="false" />
-          <Property Name="DESCUENTO" Type="float" Precision="9" Scale="0" Nullable="false" />
-          <Property Name="PRECIONETOTOTAL" Type="float" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="PRECIOUNITARIO" Type="number" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="DESCUENTO" Type="number" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="PRECIONETOTOTAL" Type="number" Precision="9" Scale="0" Nullable="false" />
           <Property Name="ID_INSUMO" Type="number" Precision="4" Scale="0" Nullable="false" />
           <Property Name="NRO_ORDEN" Type="number" Precision="9" Scale="0" Nullable="false" />
         </EntityType>
@@ -64,7 +61,7 @@
           </Key>
           <Property Name="CANTIDADPRODUCTO" Type="number" Precision="2" Scale="0" Nullable="false" />
           <Property Name="DESCRIPCION" Type="varchar2" MaxLength="50" Nullable="false" />
-          <Property Name="TOTAL_DETALLE" Type="float" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="TOTAL_DETALLE" Type="number" Precision="9" Scale="2" Nullable="false" />
           <Property Name="ESTADOPREPARACION" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="ID_PEDIDOINDIV" Type="number" Precision="9" Scale="0" Nullable="false" />
           <Property Name="ID_PRODUCTO" Type="number" Precision="9" Scale="0" Nullable="false" />
@@ -74,9 +71,19 @@
             <PropertyRef Name="ID_INSUMO" />
             <PropertyRef Name="ID_RECETA" />
           </Key>
-          <Property Name="CANTIDADINSUMO" Type="float" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="CANTIDADINSUMO" Type="number" Precision="2" Scale="0" Nullable="false" />
           <Property Name="ID_INSUMO" Type="number" Precision="4" Scale="0" Nullable="false" />
           <Property Name="ID_RECETA" Type="number" Precision="4" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DIRECCION">
+          <Key>
+            <PropertyRef Name="ID_DIRECCION" />
+          </Key>
+          <Property Name="ID_DIRECCION" Type="number" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="NOMBRECALLE" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="NUMEROCALLE" Type="number" Precision="5" Scale="0" Nullable="false" />
+          <Property Name="ID_CIUDAD" Type="number" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="ESTADO" Type="char" MaxLength="1" Nullable="false" />
         </EntityType>
         <EntityType Name="DISPONIBILIDADMESA">
           <Key>
@@ -103,9 +110,8 @@
           </Key>
           <Property Name="ID_INSUMO" Type="number" Precision="4" Scale="0" Nullable="false" />
           <Property Name="NOMBREINSUMO" Type="varchar2" MaxLength="50" Nullable="false" />
-          <Property Name="STOCKACTUAL" Type="float" Precision="6" Scale="0" Nullable="false" />
-          <Property Name="STOCKCRITICO" Type="float" Precision="6" Scale="0" Nullable="false" />
-          <Property Name="UNIDAD_MEDIDA" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="STOCKACTUAL" Type="number" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="STOCKCRITICO" Type="number" Precision="4" Scale="0" Nullable="false" />
           <Property Name="ESTADO" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="DESCRIPCIONINSUMO" Type="varchar2" MaxLength="100" />
         </EntityType>
@@ -135,7 +141,7 @@
           </Key>
           <Property Name="ID_MOVIMIENTOCAJA" Type="number" Precision="9" Scale="0" Nullable="false" />
           <Property Name="FECHA" Type="date" Nullable="false" />
-          <Property Name="MONTO" Type="float" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="MONTO" Type="number" Precision="9" Scale="2" Nullable="false" />
           <Property Name="TIPO" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="DESCRIPCION" Type="varchar2" MaxLength="100" />
           <Property Name="ESTADO" Type="char" MaxLength="1" Nullable="false" />
@@ -150,7 +156,7 @@
           </Key>
           <Property Name="NRO_ORDEN" Type="number" Precision="9" Scale="0" Nullable="false" />
           <Property Name="FECHA" Type="date" Nullable="false" />
-          <Property Name="FIRMADIGITAL" Type="blob" />
+          <Property Name="FIRMADIGITAL" Type="blob" Nullable="false" />
           <Property Name="RUT_PROVEEDOR" Type="varchar2" MaxLength="10" Nullable="false" />
           <Property Name="ID_SUSCURSAL" Type="number" Precision="4" Scale="0" Nullable="false" />
           <Property Name="ESTADO" Type="char" MaxLength="1" Nullable="false" />
@@ -160,28 +166,26 @@
             <PropertyRef Name="ID_PAGO" />
           </Key>
           <Property Name="ID_PAGO" Type="number" Precision="9" Scale="0" Nullable="false" />
-          <Property Name="MONTO" Type="float" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="MONTO" Type="number" Precision="9" Scale="2" Nullable="false" />
           <Property Name="MEDIODEPAGO" Type="varchar2" MaxLength="50" Nullable="false" />
           <Property Name="TIPOPAGO" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="ESTADO" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="ID_PEDIDO" Type="number" Precision="4" Scale="0" Nullable="false" />
           <Property Name="ID_BOLETA" Type="varchar2" MaxLength="20" Nullable="false" />
-          <Property Name="FECHA_PAGO" Type="date" />
         </EntityType>
         <EntityType Name="PEDIDO">
           <Key>
             <PropertyRef Name="ID_PEDIDO" />
           </Key>
           <Property Name="ID_PEDIDO" Type="number" Precision="9" Scale="0" Nullable="false" />
-          <Property Name="FECHAYHORA" Type="date" />
-          <Property Name="TOTAL" Type="float" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="FECHAYHORA" Type="date" Nullable="false" />
+          <Property Name="TOTAL" Type="number" Precision="9" Scale="2" Nullable="false" />
           <Property Name="ESTADO" Type="char" MaxLength="1" Nullable="false" />
-          <Property Name="FECHAHORA_ENTREGA" Type="date" />
+          <Property Name="FECHAHORA_ENTREGA" Type="date" Nullable="false" />
           <Property Name="CANTIDADPEDIDOSINDIVIDUALES" Type="number" Precision="3" Scale="0" Nullable="false" />
           <Property Name="RUT_PERSONA" Type="varchar2" MaxLength="10" Nullable="false" />
           <Property Name="NROMESA" Type="number" Precision="4" Scale="0" Nullable="false" />
           <Property Name="RUT_GARZON" Type="varchar2" MaxLength="10" />
-          <Property Name="MINUTOSESPERA" Type="number" Precision="38" Scale="0" />
         </EntityType>
         <EntityType Name="PEDIDOINDIVIDUAL">
           <Key>
@@ -189,12 +193,10 @@
           </Key>
           <Property Name="ID_PEDIDOINDIV" Type="number" Precision="9" Scale="0" Nullable="false" />
           <Property Name="FECHAYHORA" Type="date" Nullable="false" />
-          <Property Name="TOTALINDIV" Type="float" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="TOTALINDIV" Type="number" Precision="9" Scale="2" Nullable="false" />
           <Property Name="ESTADO" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="ID_PEDIDO" Type="number" Precision="9" Scale="0" Nullable="false" />
           <Property Name="DESCRIPCION" Type="varchar2" MaxLength="150" />
-          <Property Name="HORAINICIO" Type="date" />
-          <Property Name="HORAENTREGA" Type="date" />
         </EntityType>
         <EntityType Name="PERSONA">
           <Key>
@@ -207,7 +209,7 @@
           <Property Name="ESTADO" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="CONTRASENA" Type="varchar2" MaxLength="100" Nullable="false" />
           <Property Name="TELEFONO" Type="varchar2" MaxLength="12" />
-          <Property Name="ROL_ID_ROL" Type="number" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="ID_ROL" Type="number" Precision="4" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="PRODUCTO">
           <Key>
@@ -215,7 +217,7 @@
           </Key>
           <Property Name="ID_PRODUCTO" Type="number" Precision="9" Scale="0" Nullable="false" />
           <Property Name="NOMBREPRODUCTO" Type="varchar2" MaxLength="50" Nullable="false" />
-          <Property Name="PRECIO" Type="float" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="PRECIO" Type="number" Precision="9" Scale="2" Nullable="false" />
           <Property Name="ESTADO" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="DESCRIPCION" Type="varchar2" MaxLength="100" />
           <Property Name="ID_CATEGORIA" Type="number" Precision="4" Scale="0" Nullable="false" />
@@ -228,9 +230,8 @@
           <Property Name="RAZONSOCIAL" Type="varchar2" MaxLength="50" Nullable="false" />
           <Property Name="GIRO" Type="varchar2" MaxLength="50" Nullable="false" />
           <Property Name="TELEFONO" Type="varchar2" MaxLength="12" Nullable="false" />
-          <Property Name="DIRECCION" Type="varchar2" MaxLength="50" Nullable="false" />
-          <Property Name="CIUDAD" Type="varchar2" MaxLength="50" Nullable="false" />
           <Property Name="ESTADO" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="ID_DIRECCION" Type="number" Precision="9" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="RECETA">
           <Key>
@@ -267,46 +268,9 @@
           <Property Name="ID_SUSCURSAL" Type="number" Precision="4" Scale="0" Nullable="false" />
           <Property Name="RAZONSOCIAL" Type="varchar2" MaxLength="50" Nullable="false" />
           <Property Name="TELEFONO" Type="varchar2" MaxLength="12" Nullable="false" />
-          <Property Name="DIRECCION" Type="varchar2" MaxLength="50" Nullable="false" />
-          <Property Name="CIUDAD" Type="varchar2" MaxLength="50" Nullable="false" />
           <Property Name="ESTADO" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="ID_DIRECCION" Type="number" Precision="9" Scale="0" Nullable="false" />
         </EntityType>
-        <Association Name="APERTURACAJA_CAJA_FK">
-          <End Role="CAJA" Type="Self.CAJA" Multiplicity="1" />
-          <End Role="APERTURACAJA" Type="Self.APERTURACAJA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CAJA">
-              <PropertyRef Name="ID_CAJA" />
-            </Principal>
-            <Dependent Role="APERTURACAJA">
-              <PropertyRef Name="ID_CAJA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="APERTURACAJA_PERSONA_FK">
-          <End Role="PERSONA" Type="Self.PERSONA" Multiplicity="1" />
-          <End Role="APERTURACAJA" Type="Self.APERTURACAJA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PERSONA">
-              <PropertyRef Name="RUT_PERSONA" />
-            </Principal>
-            <Dependent Role="APERTURACAJA">
-              <PropertyRef Name="RUT_PERSONA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="CUADRATURA_APERTURACAJA_FK">
-          <End Role="APERTURACAJA" Type="Self.APERTURACAJA" Multiplicity="1" />
-          <End Role="CUADRATURA" Type="Self.CUADRATURA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="APERTURACAJA">
-              <PropertyRef Name="ID_APERTURA" />
-            </Principal>
-            <Dependent Role="CUADRATURA">
-              <PropertyRef Name="ID_APERTURA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="CUADRATURA_CAJA_FK">
           <End Role="CAJA" Type="Self.CAJA" Multiplicity="1" />
           <End Role="CUADRATURA" Type="Self.CUADRATURA" Multiplicity="*" />
@@ -391,7 +355,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="DISPONIBILIDADMESA_MESA_FK">
+        <Association Name="DIRECCION_CIUDAD_FK">
+          <End Role="CIUDAD" Type="Self.CIUDAD" Multiplicity="1" />
+          <End Role="DIRECCION" Type="Self.DIRECCION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CIUDAD">
+              <PropertyRef Name="ID_CIUDAD" />
+            </Principal>
+            <Dependent Role="DIRECCION">
+              <PropertyRef Name="ID_CIUDAD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DISPOMESA_MESA_FK">
           <End Role="MESA" Type="Self.MESA" Multiplicity="1" />
           <End Role="DISPONIBILIDADMESA" Type="Self.DISPONIBILIDADMESA" Multiplicity="*" />
           <ReferentialConstraint>
@@ -403,7 +379,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="DISPONIBILIDADMESA_RESERVA_FK">
+        <Association Name="DISPOMESA_RESERVA_FK">
           <End Role="RESERVA" Type="Self.RESERVA" Multiplicity="1" />
           <End Role="DISPONIBILIDADMESA" Type="Self.DISPONIBILIDADMESA" Multiplicity="*" />
           <ReferentialConstraint>
@@ -567,7 +543,7 @@
               <PropertyRef Name="ID_ROL" />
             </Principal>
             <Dependent Role="PERSONA">
-              <PropertyRef Name="ROL_ID_ROL" />
+              <PropertyRef Name="ID_ROL" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -580,6 +556,18 @@
             </Principal>
             <Dependent Role="PRODUCTO">
               <PropertyRef Name="ID_CATEGORIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PROVEEDOR_DIRECCION_FK">
+          <End Role="DIRECCION" Type="Self.DIRECCION" Multiplicity="1" />
+          <End Role="PROVEEDOR" Type="Self.PROVEEDOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIRECCION">
+              <PropertyRef Name="ID_DIRECCION" />
+            </Principal>
+            <Dependent Role="PROVEEDOR">
+              <PropertyRef Name="ID_DIRECCION" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -607,55 +595,354 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="PKG_MESA_PRO_CREAR_MESA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21" StoreFunctionName="PKG_MESA.PRO_CREAR_MESA">
-          <Parameter Name="MESA_ID" Type="number" Mode="In" />
-          <Parameter Name="MESA_DESC" Type="varchar2" Mode="In" />
-          <Parameter Name="MESA_ASIENTOS" Type="number" Mode="In" />
-          <Parameter Name="MESA_ESTADO" Type="char" Mode="In" />
+        <Association Name="SUCURSAL_DIRECCION_FK">
+          <End Role="DIRECCION" Type="Self.DIRECCION" Multiplicity="1" />
+          <End Role="SUCURSAL" Type="Self.SUCURSAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIRECCION">
+              <PropertyRef Name="ID_DIRECCION" />
+            </Principal>
+            <Dependent Role="SUCURSAL">
+              <PropertyRef Name="ID_DIRECCION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SP_AGREGADISPONIBILIDAD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XFECHAHORA" Type="date" Mode="In" />
+          <Parameter Name="XID_RESERVA" Type="number" Mode="In" />
+          <Parameter Name="XNROMESA" Type="number" Mode="In" />
         </Function>
-        <Function Name="PKG_MESA_PRO_MODIFICAR_MESA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21" StoreFunctionName="PKG_MESA.PRO_MODIFICAR_MESA">
-          <Parameter Name="MESA_ID" Type="number" Mode="In" />
-          <Parameter Name="MESA_DESC" Type="varchar2" Mode="In" />
-          <Parameter Name="MESA_ASIENTOS" Type="number" Mode="In" />
-          <Parameter Name="MESA_ESTADO" Type="char" Mode="In" />
+        <Function Name="SP_AGREGAR_CAJA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XESTADO" Type="char" Mode="In" />
+          <Parameter Name="XDESCRIPCION" Type="varchar2" Mode="In" />
         </Function>
-        <Function Name="PKG_Persona_PRO_CREAR_PERSONA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21" StoreFunctionName="PKG_Persona.PRO_CREAR_PERSONA">
-          <Parameter Name="PER_RUT" Type="varchar2" Mode="In" />
-          <Parameter Name="PER_NOMBRE" Type="varchar2" Mode="In" />
-          <Parameter Name="PER_APELLIDO" Type="varchar2" Mode="In" />
-          <Parameter Name="PER_CORREO" Type="varchar2" Mode="In" />
-          <Parameter Name="PER_ESTADO" Type="char" Mode="In" />
-          <Parameter Name="PER_CONTRASENA" Type="varchar2" Mode="In" />
-          <Parameter Name="PER_TELEFONO" Type="varchar2" Mode="In" />
-          <Parameter Name="PER_ID_ROL" Type="number" Mode="In" />
+        <Function Name="SP_AGREGAR_CATEGORIA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XNOMBRE_CATEGORIA" Type="varchar2" Mode="In" />
+          <Parameter Name="XESTADO" Type="char" Mode="In" />
         </Function>
-        <Function Name="PKG_Persona_PRO_MODIFICAR_PERSONA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21" StoreFunctionName="PKG_Persona.PRO_MODIFICAR_PERSONA">
-          <Parameter Name="PER_RUT" Type="varchar2" Mode="In" />
-          <Parameter Name="PER_NOMBRE" Type="varchar2" Mode="In" />
-          <Parameter Name="PER_APELLIDO" Type="varchar2" Mode="In" />
-          <Parameter Name="PER_CORREO" Type="varchar2" Mode="In" />
-          <Parameter Name="PER_ESTADO" Type="char" Mode="In" />
-          <Parameter Name="PER_CONTRASENA" Type="varchar2" Mode="In" />
-          <Parameter Name="PER_TELEFONO" Type="varchar2" Mode="In" />
-          <Parameter Name="PER_ID_ROL" Type="number" Mode="In" />
+        <Function Name="SP_AGREGAR_CUADRATURA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XMONTOESPERADO" Type="number" Mode="In" />
+          <Parameter Name="XMONTOREAL" Type="number" Mode="In" />
+          <Parameter Name="XFECHA" Type="date" Mode="In" />
+          <Parameter Name="XESTADO" Type="char" Mode="In" />
+          <Parameter Name="XCAJA" Type="number" Mode="In" />
         </Function>
+        <Function Name="SP_AGREGAR_DETALLEORDEN" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XDESCRIPCION" Type="varchar2" Mode="In" />
+          <Parameter Name="XFECHA" Type="date" Mode="In" />
+          <Parameter Name="XCANTIDAD" Type="number" Mode="In" />
+          <Parameter Name="XPRECIOU" Type="number" Mode="In" />
+          <Parameter Name="XDESCUENTO" Type="number" Mode="In" />
+          <Parameter Name="XPRECIOTOTAL" Type="number" Mode="In" />
+          <Parameter Name="XINSUMO" Type="number" Mode="In" />
+          <Parameter Name="XNRO_ORDEN" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_AGREGAR_DETALLEPEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XCANTIDAD" Type="number" Mode="In" />
+          <Parameter Name="XDESCRIPCION" Type="varchar2" Mode="In" />
+          <Parameter Name="XTOTAL" Type="number" Mode="In" />
+          <Parameter Name="XESTADO" Type="char" Mode="In" />
+          <Parameter Name="XPEDIDOIND" Type="number" Mode="In" />
+          <Parameter Name="XID_PRODUCTO" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_AGREGAR_DETALLERECETA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XCANTIDAD" Type="number" Mode="In" />
+          <Parameter Name="XID_INSUMO" Type="number" Mode="In" />
+          <Parameter Name="XID_RECETA" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_AGREGAR_DIRECCION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XNOMBRE" Type="varchar2" Mode="In" />
+          <Parameter Name="XNUMERO" Type="number" Mode="In" />
+          <Parameter Name="XCIUDAD" Type="number" Mode="In" />
+          <Parameter Name="XESTADO" Type="char" Mode="In" />
+        </Function>
+        <Function Name="SP_AGREGAR_GARZON" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="G_RUT" Type="varchar2" Mode="In" />
+          <Parameter Name="G_NOMBRE" Type="varchar2" Mode="In" />
+          <Parameter Name="G_APELLIDO" Type="varchar2" Mode="In" />
+          <Parameter Name="G_CORREO" Type="varchar2" Mode="In" />
+          <Parameter Name="G_CONTRASENA" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="SP_AGREGAR_INSUMO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XNOMBRE_INSUMO" Type="varchar2" Mode="In" />
+          <Parameter Name="XSTOCK_ACTUAL" Type="number" Mode="In" />
+          <Parameter Name="XSTOCK_CRITICO" Type="number" Mode="In" />
+          <Parameter Name="XESTADO_INSUMO" Type="char" Mode="In" />
+          <Parameter Name="XDESCRIPCION_INSUMO" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="SP_AGREGAR_MESA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XDESCRIPCION" Type="varchar2" Mode="In" />
+          <Parameter Name="XASIENTOS" Type="number" Mode="In" />
+          <Parameter Name="XESTADO" Type="char" Mode="In" />
+        </Function>
+        <Function Name="SP_AGREGAR_MOVIMIENTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XFECHA" Type="date" Mode="In" />
+          <Parameter Name="XCANTIDAD" Type="number" Mode="In" />
+          <Parameter Name="XTIPO" Type="varchar2" Mode="In" />
+          <Parameter Name="XPERSONA" Type="varchar2" Mode="In" />
+          <Parameter Name="XINSUMO" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_AGREGAR_MOVIMIENTOCAJA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XFECHA" Type="date" Mode="In" />
+          <Parameter Name="XMONTO" Type="number" Mode="In" />
+          <Parameter Name="XTIPO" Type="char" Mode="In" />
+          <Parameter Name="XDESCRIPCION" Type="varchar2" Mode="In" />
+          <Parameter Name="XESTADO" Type="char" Mode="In" />
+          <Parameter Name="XPERSONA" Type="varchar2" Mode="In" />
+          <Parameter Name="XCAJA" Type="number" Mode="In" />
+          <Parameter Name="XIDPAGO" Type="number" Mode="In" />
+          <Parameter Name="XNRO_ORDEN" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_AGREGAR_ORDENCOMPRA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XFECHA" Type="date" Mode="In" />
+          <Parameter Name="XFIRMADIGITAL" Type="blob" Mode="In" />
+          <Parameter Name="XPROVEEDOR" Type="varchar2" Mode="In" />
+          <Parameter Name="XSUCURSAL" Type="number" Mode="In" />
+          <Parameter Name="XESTADO" Type="char" Mode="In" />
+        </Function>
+        <Function Name="SP_AGREGAR_PAGO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XMONTO" Type="number" Mode="In" />
+          <Parameter Name="XMEDIOPAGO" Type="varchar2" Mode="In" />
+          <Parameter Name="XTIPOPAGO" Type="char" Mode="In" />
+          <Parameter Name="XESTADO" Type="char" Mode="In" />
+          <Parameter Name="XPEDIDO" Type="number" Mode="In" />
+          <Parameter Name="XBOLETA" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_AGREGAR_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XFECHAHORA" Type="date" Mode="In" />
+          <Parameter Name="XTOTAL" Type="number" Mode="In" />
+          <Parameter Name="XESTADO" Type="char" Mode="In" />
+          <Parameter Name="XENTREGA" Type="date" Mode="In" />
+          <Parameter Name="XCANTIDAD_PEDIDOS" Type="number" Mode="In" />
+          <Parameter Name="XCLIENTE" Type="varchar2" Mode="In" />
+          <Parameter Name="XMESA" Type="number" Mode="In" />
+          <Parameter Name="XGARZON" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="SP_AGREGAR_PEDIDOINDIVIDUAL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XFECHAHORA" Type="date" Mode="In" />
+          <Parameter Name="XTOTAL" Type="number" Mode="In" />
+          <Parameter Name="XESTADO" Type="char" Mode="In" />
+          <Parameter Name="XID_PEDIDO" Type="number" Mode="In" />
+          <Parameter Name="XDESCRIPCION" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="SP_AGREGAR_PERSONA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="P_RUT" Type="varchar2" Mode="In" />
+          <Parameter Name="P_NOMBRE" Type="varchar2" Mode="In" />
+          <Parameter Name="P_APELLIDO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_CORREO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_ESTADO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_CONTRASENA" Type="varchar2" Mode="In" />
+          <Parameter Name="P_TELEFONO" Type="varchar2" Mode="In" />
+          <Parameter Name="P_IDROL" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_AGREGAR_PRODUCTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XNOMBRE" Type="varchar2" Mode="In" />
+          <Parameter Name="XPRECIO" Type="number" Mode="In" />
+          <Parameter Name="XESTADO" Type="char" Mode="In" />
+          <Parameter Name="XDESCRIPCION" Type="varchar2" Mode="In" />
+          <Parameter Name="CATEGORIA_ID" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_AGREGAR_PROVEEDOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XRUT" Type="varchar2" Mode="In" />
+          <Parameter Name="XRAZONSOCIAL" Type="varchar2" Mode="In" />
+          <Parameter Name="XGIRO" Type="varchar2" Mode="In" />
+          <Parameter Name="XTELEFONO" Type="varchar2" Mode="In" />
+          <Parameter Name="XESTADO" Type="char" Mode="In" />
+          <Parameter Name="XID_DIRECCION" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_AGREGAR_RECETA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XPREPARACION" Type="varchar2" Mode="In" />
+          <Parameter Name="XESTADO" Type="char" Mode="In" />
+          <Parameter Name="PRODUCTO_ID" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_AGREGAR_RESERVA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XFECHAREALIZADO" Type="date" Mode="In" />
+          <Parameter Name="XFECHARESERVA" Type="date" Mode="In" />
+          <Parameter Name="XCANTIDAD" Type="number" Mode="In" />
+          <Parameter Name="XESTADO" Type="char" Mode="In" />
+          <Parameter Name="XRUT_PERSONA" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="SP_DETALLEPEDIDO_LISTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XID_PEDIDO" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_EDITAR_CAJA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XID" Type="number" Mode="In" />
+          <Parameter Name="XESTADO" Type="char" Mode="In" />
+          <Parameter Name="XDESCRIPCION" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="SP_EDITAR_CATEGORIA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XNOMBRE_CATEGORIA" Type="varchar2" Mode="In" />
+          <Parameter Name="XID" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_EDITAR_GARZON" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XRUT" Type="varchar2" Mode="In" />
+          <Parameter Name="XNOMBRE" Type="varchar2" Mode="In" />
+          <Parameter Name="XAPELLIDO" Type="varchar2" Mode="In" />
+          <Parameter Name="XCORREO" Type="varchar2" Mode="In" />
+          <Parameter Name="XCONTRASENA" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="SP_EDITAR_INSUMO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XID_INSUMO" Type="number" Mode="In" />
+          <Parameter Name="XNOMBRE_INSUMO" Type="varchar2" Mode="In" />
+          <Parameter Name="XSTOCK_ACTUAL" Type="number" Mode="In" />
+          <Parameter Name="XSTOCK_CRITICO" Type="number" Mode="In" />
+          <Parameter Name="XDESCRIPCION_INSUMO" Type="varchar2" Mode="In" />
+          <Parameter Name="XESTADO" Type="char" Mode="In" />
+        </Function>
+        <Function Name="SP_EDITAR_MESA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XNRO_MESA" Type="number" Mode="In" />
+          <Parameter Name="XDESCRIPCION" Type="varchar2" Mode="In" />
+          <Parameter Name="XASIENTOS" Type="number" Mode="In" />
+          <Parameter Name="XESTADO" Type="char" Mode="In" />
+        </Function>
+        <Function Name="SP_EDITAR_ORDENCOMPRA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XNRO" Type="number" Mode="In" />
+          <Parameter Name="XFECHA" Type="date" Mode="In" />
+          <Parameter Name="XFIRMADIGITAL" Type="blob" Mode="In" />
+          <Parameter Name="XPROVEEDOR" Type="varchar2" Mode="In" />
+          <Parameter Name="XSUCURSAL" Type="number" Mode="In" />
+          <Parameter Name="XESTADO" Type="char" Mode="In" />
+        </Function>
+        <Function Name="SP_EDITAR_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XID" Type="number" Mode="In" />
+          <Parameter Name="XFECHAHORA" Type="date" Mode="In" />
+          <Parameter Name="XTOTAL" Type="number" Mode="In" />
+          <Parameter Name="XESTADO" Type="char" Mode="In" />
+          <Parameter Name="XENTREGA" Type="date" Mode="In" />
+          <Parameter Name="XCANTIDAD_PEDIDOS" Type="number" Mode="In" />
+          <Parameter Name="XCLIENTE" Type="varchar2" Mode="In" />
+          <Parameter Name="XMESA" Type="number" Mode="In" />
+          <Parameter Name="XGARZON" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="SP_EDITAR_PEDIDOINDIVIDUAL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="X_ID" Type="number" Mode="In" />
+          <Parameter Name="XFECHAHORA" Type="date" Mode="In" />
+          <Parameter Name="XTOTAL" Type="number" Mode="In" />
+          <Parameter Name="XESTADO" Type="char" Mode="In" />
+          <Parameter Name="XID_PEDIDO" Type="number" Mode="In" />
+          <Parameter Name="XDESCRIPCION" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="SP_EDITAR_PERSONA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XRUT_PERSONA" Type="varchar2" Mode="In" />
+          <Parameter Name="XNOMBRE_PERSONA" Type="varchar2" Mode="In" />
+          <Parameter Name="XAPELLIDO_PERSONA" Type="varchar2" Mode="In" />
+          <Parameter Name="XCORREO_PERSONA" Type="varchar2" Mode="In" />
+          <Parameter Name="XCONTRASENA_PERSONA" Type="varchar2" Mode="In" />
+          <Parameter Name="XTELEFONO_PERSONA" Type="varchar2" Mode="In" />
+          <Parameter Name="XID_ROL" Type="number" Mode="In" />
+          <Parameter Name="XESTADO" Type="char" Mode="In" />
+        </Function>
+        <Function Name="SP_EDITAR_PRODUCTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XID" Type="number" Mode="In" />
+          <Parameter Name="XNOMBRE" Type="varchar2" Mode="In" />
+          <Parameter Name="XPRECIO" Type="number" Mode="In" />
+          <Parameter Name="XDESCRIPCION" Type="varchar2" Mode="In" />
+          <Parameter Name="ID_CATEGORIA" Type="number" Mode="In" />
+          <Parameter Name="XESTADO" Type="char" Mode="In" />
+        </Function>
+        <Function Name="SP_EDITAR_RECETA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XID" Type="number" Mode="In" />
+          <Parameter Name="XPREPARACION" Type="varchar2" Mode="In" />
+          <Parameter Name="PRODUCTO_ID" Type="number" Mode="In" />
+          <Parameter Name="XESTADO" Type="char" Mode="In" />
+        </Function>
+        <Function Name="SP_EDITAR_RESERVAS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XID_RESERVA" Type="number" Mode="In" />
+          <Parameter Name="XFECHAREALIZACION" Type="date" Mode="In" />
+          <Parameter Name="XFECHARESERVA" Type="date" Mode="In" />
+          <Parameter Name="XCANTIDAD" Type="number" Mode="In" />
+          <Parameter Name="XRUT_PERSONA" Type="varchar2" Mode="In" />
+          <Parameter Name="XESTADO" Type="char" Mode="In" />
+        </Function>
+        <Function Name="SP_ELIMINADISPONIBILIDAD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="X_RESERVA" Type="number" Mode="In" />
+          <Parameter Name="X_MESA" Type="number" Mode="In" />
+          <Parameter Name="X_RETURN" Type="number" Mode="Out" />
+        </Function>
+        <Function Name="SP_ELIMINAR_CATEGORIA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XID" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_ELIMINAR_DETALLEPEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="X_PEDIDO" Type="number" Mode="In" />
+          <Parameter Name="X_PRODUCTO" Type="number" Mode="In" />
+          <Parameter Name="X_RETURN" Type="number" Mode="Out" />
+        </Function>
+        <Function Name="SP_ELIMINAR_DETALLERECETA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XINSUMO" Type="number" Mode="In" />
+          <Parameter Name="XRECETA" Type="number" Mode="In" />
+          <Parameter Name="X_RETURN" Type="number" Mode="Out" />
+        </Function>
+        <Function Name="SP_ELIMINAR_GARZON" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="X_RUT" Type="varchar2" Mode="In" />
+          <Parameter Name="X_RETURN" Type="number" Mode="Out" />
+        </Function>
+        <Function Name="SP_ELIMINAR_INSUMO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XID_INSUMO" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_ELIMINAR_MESA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XNRO_MESA" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_ELIMINAR_ORDENCOMPRA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XNRO" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_ELIMINAR_PAGO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XID_PAGO" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_ELIMINAR_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XID_PEDIDO" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_ELIMINAR_PEDIDOINDIVIDUAL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="X_ID" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_ELIMINAR_PERSONA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XRUT_PERSONA" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="SP_ELIMINAR_PRODUCTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XID" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_ELIMINAR_RECETA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XID" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_ELIMINAR_RESERVAS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XID_RESERVA" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_ENTREGAPEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XID_PEDIDO" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SP_LISTAR_CAJA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21" />
+        <Function Name="SP_LISTAR_CATEGORIA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21" />
+        <Function Name="SP_LISTAR_DETALLEPEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21" />
+        <Function Name="SP_LISTAR_GARZON" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21" />
+        <Function Name="SP_LISTAR_INSUMO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21" />
         <Function Name="SP_LISTAR_MESA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21" />
+        <Function Name="SP_LISTAR_ORDENESCOMPRA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21" />
+        <Function Name="SP_LISTAR_PAGO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21" />
+        <Function Name="SP_LISTAR_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21" />
+        <Function Name="SP_LISTAR_PEDIDOINDIVIDUAL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21" />
+        <Function Name="SP_LISTAR_PERSONA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21" />
+        <Function Name="SP_LISTAR_PERSONA_RUT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XRUT_PERSONA" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="SP_LISTAR_PRODUCTO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21" />
+        <Function Name="SP_LISTAR_PROVEEDOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21" />
+        <Function Name="SP_LISTAR_RECETA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21" />
+        <Function Name="SP_LISTAR_RESERVAS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21" />
+        <Function Name="SP_PAGAR_PEDIDO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
+          <Parameter Name="XPEDIDO" Type="number" Mode="In" />
+        </Function>
         <Function Name="SP_VALIDAR_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
           <Parameter Name="USERNAME" Type="varchar2" Mode="In" />
           <Parameter Name="CONTRASENA" Type="varchar2" Mode="In" />
         </Function>
-        <Function Name="TOP_PLATOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SIGLO21">
-          <Parameter Name="FINICIO" Type="varchar2" Mode="In" />
-          <Parameter Name="FFIN" Type="varchar2" Mode="In" />
-        </Function>
         <EntityContainer Name="ModelStoreContainer">
-          <EntitySet Name="APERTURACAJA" EntityType="Self.APERTURACAJA" Schema="SIGLO21" store:Type="Tables" />
           <EntitySet Name="CAJA" EntityType="Self.CAJA" Schema="SIGLO21" store:Type="Tables" />
           <EntitySet Name="CATEGORIA" EntityType="Self.CATEGORIA" Schema="SIGLO21" store:Type="Tables" />
+          <EntitySet Name="CIUDAD" EntityType="Self.CIUDAD" Schema="SIGLO21" store:Type="Tables" />
           <EntitySet Name="CUADRATURA" EntityType="Self.CUADRATURA" Schema="SIGLO21" store:Type="Tables" />
           <EntitySet Name="DETALLEORDENCOMPRA" EntityType="Self.DETALLEORDENCOMPRA" Schema="SIGLO21" store:Type="Tables" />
           <EntitySet Name="DETALLEPEDIDO" EntityType="Self.DETALLEPEDIDO" Schema="SIGLO21" store:Type="Tables" />
           <EntitySet Name="DETALLERECETA" EntityType="Self.DETALLERECETA" Schema="SIGLO21" store:Type="Tables" />
+          <EntitySet Name="DIRECCION" EntityType="Self.DIRECCION" Schema="SIGLO21" store:Type="Tables" />
           <EntitySet Name="DISPONIBILIDADMESA" EntityType="Self.DISPONIBILIDADMESA" Schema="SIGLO21" store:Type="Tables" />
           <EntitySet Name="GARZON" EntityType="Self.GARZON" Schema="SIGLO21" store:Type="Tables" />
           <EntitySet Name="INSUMO" EntityType="Self.INSUMO" Schema="SIGLO21" store:Type="Tables" />
@@ -673,18 +960,6 @@
           <EntitySet Name="RESERVA" EntityType="Self.RESERVA" Schema="SIGLO21" store:Type="Tables" />
           <EntitySet Name="ROL" EntityType="Self.ROL" Schema="SIGLO21" store:Type="Tables" />
           <EntitySet Name="SUCURSAL" EntityType="Self.SUCURSAL" Schema="SIGLO21" store:Type="Tables" />
-          <AssociationSet Name="APERTURACAJA_CAJA_FK" Association="Self.APERTURACAJA_CAJA_FK">
-            <End Role="CAJA" EntitySet="CAJA" />
-            <End Role="APERTURACAJA" EntitySet="APERTURACAJA" />
-          </AssociationSet>
-          <AssociationSet Name="APERTURACAJA_PERSONA_FK" Association="Self.APERTURACAJA_PERSONA_FK">
-            <End Role="PERSONA" EntitySet="PERSONA" />
-            <End Role="APERTURACAJA" EntitySet="APERTURACAJA" />
-          </AssociationSet>
-          <AssociationSet Name="CUADRATURA_APERTURACAJA_FK" Association="Self.CUADRATURA_APERTURACAJA_FK">
-            <End Role="APERTURACAJA" EntitySet="APERTURACAJA" />
-            <End Role="CUADRATURA" EntitySet="CUADRATURA" />
-          </AssociationSet>
           <AssociationSet Name="CUADRATURA_CAJA_FK" Association="Self.CUADRATURA_CAJA_FK">
             <End Role="CAJA" EntitySet="CAJA" />
             <End Role="CUADRATURA" EntitySet="CUADRATURA" />
@@ -713,11 +988,15 @@
             <End Role="RECETA" EntitySet="RECETA" />
             <End Role="DETALLERECETA" EntitySet="DETALLERECETA" />
           </AssociationSet>
-          <AssociationSet Name="DISPONIBILIDADMESA_MESA_FK" Association="Self.DISPONIBILIDADMESA_MESA_FK">
+          <AssociationSet Name="DIRECCION_CIUDAD_FK" Association="Self.DIRECCION_CIUDAD_FK">
+            <End Role="CIUDAD" EntitySet="CIUDAD" />
+            <End Role="DIRECCION" EntitySet="DIRECCION" />
+          </AssociationSet>
+          <AssociationSet Name="DISPOMESA_MESA_FK" Association="Self.DISPOMESA_MESA_FK">
             <End Role="MESA" EntitySet="MESA" />
             <End Role="DISPONIBILIDADMESA" EntitySet="DISPONIBILIDADMESA" />
           </AssociationSet>
-          <AssociationSet Name="DISPONIBILIDADMESA_RESERVA_FK" Association="Self.DISPONIBILIDADMESA_RESERVA_FK">
+          <AssociationSet Name="DISPOMESA_RESERVA_FK" Association="Self.DISPOMESA_RESERVA_FK">
             <End Role="RESERVA" EntitySet="RESERVA" />
             <End Role="DISPONIBILIDADMESA" EntitySet="DISPONIBILIDADMESA" />
           </AssociationSet>
@@ -777,6 +1056,10 @@
             <End Role="CATEGORIA" EntitySet="CATEGORIA" />
             <End Role="PRODUCTO" EntitySet="PRODUCTO" />
           </AssociationSet>
+          <AssociationSet Name="PROVEEDOR_DIRECCION_FK" Association="Self.PROVEEDOR_DIRECCION_FK">
+            <End Role="DIRECCION" EntitySet="DIRECCION" />
+            <End Role="PROVEEDOR" EntitySet="PROVEEDOR" />
+          </AssociationSet>
           <AssociationSet Name="RECETA_PRODUCTO_FK" Association="Self.RECETA_PRODUCTO_FK">
             <End Role="PRODUCTO" EntitySet="PRODUCTO" />
             <End Role="RECETA" EntitySet="RECETA" />
@@ -785,24 +1068,15 @@
             <End Role="PERSONA" EntitySet="PERSONA" />
             <End Role="RESERVA" EntitySet="RESERVA" />
           </AssociationSet>
+          <AssociationSet Name="SUCURSAL_DIRECCION_FK" Association="Self.SUCURSAL_DIRECCION_FK">
+            <End Role="DIRECCION" EntitySet="DIRECCION" />
+            <End Role="SUCURSAL" EntitySet="SUCURSAL" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="APERTURACAJA">
-          <Key>
-            <PropertyRef Name="ID_APERTURA" />
-          </Key>
-          <Property Name="ID_APERTURA" Type="Int32" Nullable="false" />
-          <Property Name="MONTO" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
-          <Property Name="FECHAYHORA" Type="DateTime" Nullable="false" />
-          <Property Name="RUT_PERSONA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ID_CAJA" Type="Int16" Nullable="false" />
-          <NavigationProperty Name="CAJA" Relationship="Self.APERTURACAJA_CAJA_FK" FromRole="APERTURACAJA" ToRole="CAJA" />
-          <NavigationProperty Name="PERSONA" Relationship="Self.APERTURACAJA_PERSONA_FK" FromRole="APERTURACAJA" ToRole="PERSONA" />
-          <NavigationProperty Name="CUADRATURA" Relationship="Self.CUADRATURA_APERTURACAJA_FK" FromRole="APERTURACAJA" ToRole="CUADRATURA" />
-        </EntityType>
         <EntityType Name="CAJA">
           <Key>
             <PropertyRef Name="ID_CAJA" />
@@ -810,7 +1084,6 @@
           <Property Name="ID_CAJA" Type="Int16" Nullable="false" />
           <Property Name="ESTADO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="APERTURACAJA" Relationship="Self.APERTURACAJA_CAJA_FK" FromRole="CAJA" ToRole="APERTURACAJA" />
           <NavigationProperty Name="CUADRATURA" Relationship="Self.CUADRATURA_CAJA_FK" FromRole="CAJA" ToRole="CUADRATURA" />
           <NavigationProperty Name="MOVIMIENTOCAJA" Relationship="Self.MOVIMIENTOCAJA_CAJA_FK" FromRole="CAJA" ToRole="MOVIMIENTOCAJA" />
         </EntityType>
@@ -823,18 +1096,25 @@
           <Property Name="ESTADO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <NavigationProperty Name="PRODUCTO" Relationship="Self.PRODUCTO_CATEGORIA_FK" FromRole="CATEGORIA" ToRole="PRODUCTO" />
         </EntityType>
+        <EntityType Name="CIUDAD">
+          <Key>
+            <PropertyRef Name="ID_CIUDAD" />
+          </Key>
+          <Property Name="ID_CIUDAD" Type="Int32" Nullable="false" />
+          <Property Name="NOMBRECIUDAD" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ESTADO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="DIRECCION" Relationship="Self.DIRECCION_CIUDAD_FK" FromRole="CIUDAD" ToRole="DIRECCION" />
+        </EntityType>
         <EntityType Name="CUADRATURA">
           <Key>
             <PropertyRef Name="ID_CUADRATURA" />
           </Key>
           <Property Name="ID_CUADRATURA" Type="Int32" Nullable="false" />
-          <Property Name="MONTOESPERADO" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
-          <Property Name="MONTOREAL" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="MONTOESPERADO" Type="Int32" Nullable="false" />
+          <Property Name="MONTOREAL" Type="Int32" Nullable="false" />
           <Property Name="FECHA" Type="DateTime" Nullable="false" />
           <Property Name="ESTADO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="ID_CAJA" Type="Int16" Nullable="false" />
-          <Property Name="ID_APERTURA" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="APERTURACAJA" Relationship="Self.CUADRATURA_APERTURACAJA_FK" FromRole="CUADRATURA" ToRole="APERTURACAJA" />
           <NavigationProperty Name="CAJA" Relationship="Self.CUADRATURA_CAJA_FK" FromRole="CUADRATURA" ToRole="CAJA" />
         </EntityType>
         <EntityType Name="DETALLEORDENCOMPRA">
@@ -845,9 +1125,9 @@
           <Property Name="DESCRIPCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FECHA_ENTREGA" Type="DateTime" Nullable="false" />
           <Property Name="CANTIDAD" Type="Int16" Nullable="false" />
-          <Property Name="PRECIOUNITARIO" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
-          <Property Name="DESCUENTO" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
-          <Property Name="PRECIONETOTOTAL" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="PRECIOUNITARIO" Type="Int32" Nullable="false" />
+          <Property Name="DESCUENTO" Type="Int32" Nullable="false" />
+          <Property Name="PRECIONETOTOTAL" Type="Int32" Nullable="false" />
           <Property Name="ID_INSUMO" Type="Int16" Nullable="false" />
           <Property Name="NRO_ORDEN" Type="Int32" Nullable="false" />
           <NavigationProperty Name="INSUMO" Relationship="Self.DETALLEOC_INSUMO_FK" FromRole="DETALLEORDENCOMPRA" ToRole="INSUMO" />
@@ -860,7 +1140,7 @@
           </Key>
           <Property Name="CANTIDADPRODUCTO" Type="Int16" Nullable="false" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="TOTAL_DETALLE" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="TOTAL_DETALLE" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
           <Property Name="ESTADOPREPARACION" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="ID_PEDIDOINDIV" Type="Int32" Nullable="false" />
           <Property Name="ID_PRODUCTO" Type="Int32" Nullable="false" />
@@ -872,11 +1152,24 @@
             <PropertyRef Name="ID_INSUMO" />
             <PropertyRef Name="ID_RECETA" />
           </Key>
-          <Property Name="CANTIDADINSUMO" Type="Decimal" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="CANTIDADINSUMO" Type="Int16" Nullable="false" />
           <Property Name="ID_INSUMO" Type="Int16" Nullable="false" />
           <Property Name="ID_RECETA" Type="Int16" Nullable="false" />
           <NavigationProperty Name="INSUMO" Relationship="Self.DETALLERECETA_INSUMO_FK" FromRole="DETALLERECETA" ToRole="INSUMO" />
           <NavigationProperty Name="RECETA" Relationship="Self.DETALLERECETA_RECETA_FK" FromRole="DETALLERECETA" ToRole="RECETA" />
+        </EntityType>
+        <EntityType Name="DIRECCION">
+          <Key>
+            <PropertyRef Name="ID_DIRECCION" />
+          </Key>
+          <Property Name="ID_DIRECCION" Type="Int32" Nullable="false" />
+          <Property Name="NOMBRECALLE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NUMEROCALLE" Type="Int16" Nullable="false" />
+          <Property Name="ID_CIUDAD" Type="Int32" Nullable="false" />
+          <Property Name="ESTADO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CIUDAD" Relationship="Self.DIRECCION_CIUDAD_FK" FromRole="DIRECCION" ToRole="CIUDAD" />
+          <NavigationProperty Name="PROVEEDOR" Relationship="Self.PROVEEDOR_DIRECCION_FK" FromRole="DIRECCION" ToRole="PROVEEDOR" />
+          <NavigationProperty Name="SUCURSAL" Relationship="Self.SUCURSAL_DIRECCION_FK" FromRole="DIRECCION" ToRole="SUCURSAL" />
         </EntityType>
         <EntityType Name="DISPONIBILIDADMESA">
           <Key>
@@ -886,8 +1179,8 @@
           <Property Name="FECHAHORA" Type="DateTime" Nullable="false" />
           <Property Name="ID_RESERVA" Type="Int32" Nullable="false" />
           <Property Name="NROMESA" Type="Int16" Nullable="false" />
-          <NavigationProperty Name="MESA" Relationship="Self.DISPONIBILIDADMESA_MESA_FK" FromRole="DISPONIBILIDADMESA" ToRole="MESA" />
-          <NavigationProperty Name="RESERVA" Relationship="Self.DISPONIBILIDADMESA_RESERVA_FK" FromRole="DISPONIBILIDADMESA" ToRole="RESERVA" />
+          <NavigationProperty Name="MESA" Relationship="Self.DISPOMESA_MESA_FK" FromRole="DISPONIBILIDADMESA" ToRole="MESA" />
+          <NavigationProperty Name="RESERVA" Relationship="Self.DISPOMESA_RESERVA_FK" FromRole="DISPONIBILIDADMESA" ToRole="RESERVA" />
         </EntityType>
         <EntityType Name="GARZON">
           <Key>
@@ -906,9 +1199,8 @@
           </Key>
           <Property Name="ID_INSUMO" Type="Int16" Nullable="false" />
           <Property Name="NOMBREINSUMO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="STOCKACTUAL" Type="Decimal" Precision="2" Scale="0" Nullable="false" />
-          <Property Name="STOCKCRITICO" Type="Decimal" Precision="2" Scale="0" Nullable="false" />
-          <Property Name="UNIDAD_MEDIDA" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="STOCKACTUAL" Type="Int16" Nullable="false" />
+          <Property Name="STOCKCRITICO" Type="Int16" Nullable="false" />
           <Property Name="ESTADO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="DESCRIPCIONINSUMO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DETALLEORDENCOMPRA" Relationship="Self.DETALLEOC_INSUMO_FK" FromRole="INSUMO" ToRole="DETALLEORDENCOMPRA" />
@@ -923,7 +1215,7 @@
           <Property Name="DESCRIPCION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CANTIDADASIENTOS" Type="Int16" Nullable="false" />
           <Property Name="ESTADO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="DISPONIBILIDADMESA" Relationship="Self.DISPONIBILIDADMESA_MESA_FK" FromRole="MESA" ToRole="DISPONIBILIDADMESA" />
+          <NavigationProperty Name="DISPONIBILIDADMESA" Relationship="Self.DISPOMESA_MESA_FK" FromRole="MESA" ToRole="DISPONIBILIDADMESA" />
           <NavigationProperty Name="PEDIDO" Relationship="Self.PEDIDO_MESA_FK" FromRole="MESA" ToRole="PEDIDO" />
         </EntityType>
         <EntityType Name="MOVIMIENTO">
@@ -945,7 +1237,7 @@
           </Key>
           <Property Name="ID_MOVIMIENTOCAJA" Type="Int32" Nullable="false" />
           <Property Name="FECHA" Type="DateTime" Nullable="false" />
-          <Property Name="MONTO" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="MONTO" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
           <Property Name="TIPO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="ESTADO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
@@ -978,14 +1270,13 @@
             <PropertyRef Name="ID_PAGO" />
           </Key>
           <Property Name="ID_PAGO" Type="Int32" Nullable="false" />
-          <Property Name="MONTO" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="MONTO" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
           <Property Name="MEDIODEPAGO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TIPOPAGO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="ESTADO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="ID_PEDIDO" Type="Int16" Nullable="false" />
           <Property Name="ID_BOLETA" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="MOVIMIENTOCAJA" Relationship="Self.MOVIMIENTOCAJA_PAGO_FK" FromRole="PAGO" ToRole="MOVIMIENTOCAJA" />
-          <Property Name="FECHA_PAGO" Type="DateTime" />
         </EntityType>
         <EntityType Name="PEDIDO">
           <Key>
@@ -993,7 +1284,7 @@
           </Key>
           <Property Name="ID_PEDIDO" Type="Int32" Nullable="false" />
           <Property Name="FECHAYHORA" Type="DateTime" Nullable="false" />
-          <Property Name="TOTAL" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="TOTAL" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
           <Property Name="ESTADO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="FECHAHORA_ENTREGA" Type="DateTime" Nullable="false" />
           <Property Name="CANTIDADPEDIDOSINDIVIDUALES" Type="Int16" Nullable="false" />
@@ -1004,7 +1295,6 @@
           <NavigationProperty Name="MESA" Relationship="Self.PEDIDO_MESA_FK" FromRole="PEDIDO" ToRole="MESA" />
           <NavigationProperty Name="PERSONA" Relationship="Self.PEDIDO_PERSONA_FK" FromRole="PEDIDO" ToRole="PERSONA" />
           <NavigationProperty Name="PEDIDOINDIVIDUAL" Relationship="Self.PEDIDOINDIVIDUAL_PEDIDO_FK" FromRole="PEDIDO" ToRole="PEDIDOINDIVIDUAL" />
-          <Property Name="MINUTOSESPERA" Type="Decimal" Precision="38" Scale="0" />
         </EntityType>
         <EntityType Name="PEDIDOINDIVIDUAL">
           <Key>
@@ -1012,14 +1302,12 @@
           </Key>
           <Property Name="ID_PEDIDOINDIV" Type="Int32" Nullable="false" />
           <Property Name="FECHAYHORA" Type="DateTime" Nullable="false" />
-          <Property Name="TOTALINDIV" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="TOTALINDIV" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
           <Property Name="ESTADO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="ID_PEDIDO" Type="Int32" Nullable="false" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DETALLEPEDIDO" Relationship="Self.DETALLEPEDIDO_PEDIDOINDIV_FK" FromRole="PEDIDOINDIVIDUAL" ToRole="DETALLEPEDIDO" />
           <NavigationProperty Name="PEDIDO" Relationship="Self.PEDIDOINDIVIDUAL_PEDIDO_FK" FromRole="PEDIDOINDIVIDUAL" ToRole="PEDIDO" />
-          <Property Name="HORAINICIO" Type="DateTime" />
-          <Property Name="HORAENTREGA" Type="DateTime" />
         </EntityType>
         <EntityType Name="PERSONA">
           <Key>
@@ -1032,8 +1320,7 @@
           <Property Name="ESTADO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="CONTRASENA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TELEFONO" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="ROL_ID_ROL" Type="Int16" Nullable="false" />
-          <NavigationProperty Name="APERTURACAJA" Relationship="Self.APERTURACAJA_PERSONA_FK" FromRole="PERSONA" ToRole="APERTURACAJA" />
+          <Property Name="ID_ROL" Type="Int16" Nullable="false" />
           <NavigationProperty Name="MOVIMIENTO" Relationship="Self.MOVIMIENTO_PERSONA_FK" FromRole="PERSONA" ToRole="MOVIMIENTO" />
           <NavigationProperty Name="MOVIMIENTOCAJA" Relationship="Self.MOVIMIENTOCAJA_PERSONA_FK" FromRole="PERSONA" ToRole="MOVIMIENTOCAJA" />
           <NavigationProperty Name="PEDIDO" Relationship="Self.PEDIDO_PERSONA_FK" FromRole="PERSONA" ToRole="PEDIDO" />
@@ -1046,7 +1333,7 @@
           </Key>
           <Property Name="ID_PRODUCTO" Type="Int32" Nullable="false" />
           <Property Name="NOMBREPRODUCTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PRECIO" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="PRECIO" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
           <Property Name="ESTADO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="ID_CATEGORIA" Type="Int16" Nullable="false" />
@@ -1062,9 +1349,9 @@
           <Property Name="RAZONSOCIAL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="GIRO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TELEFONO" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DIRECCION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CIUDAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ESTADO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ID_DIRECCION" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DIRECCION" Relationship="Self.PROVEEDOR_DIRECCION_FK" FromRole="PROVEEDOR" ToRole="DIRECCION" />
           <NavigationProperty Name="ORDENDECOMPRA" Relationship="Self.ORDENDECOMPRA_PROVEEDOR_FK" FromRole="PROVEEDOR" ToRole="ORDENDECOMPRA" />
         </EntityType>
         <EntityType Name="RECETA">
@@ -1088,7 +1375,7 @@
           <Property Name="CANTIDADPERSONAS" Type="Int16" Nullable="false" />
           <Property Name="ESTADO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="RUT_PERSONA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="DISPONIBILIDADMESA" Relationship="Self.DISPONIBILIDADMESA_RESERVA_FK" FromRole="RESERVA" ToRole="DISPONIBILIDADMESA" />
+          <NavigationProperty Name="DISPONIBILIDADMESA" Relationship="Self.DISPOMESA_RESERVA_FK" FromRole="RESERVA" ToRole="DISPONIBILIDADMESA" />
           <NavigationProperty Name="PERSONA" Relationship="Self.RESERVA_PERSONA_FK" FromRole="RESERVA" ToRole="PERSONA" />
         </EntityType>
         <EntityType Name="ROL">
@@ -1107,47 +1394,11 @@
           <Property Name="ID_SUSCURSAL" Type="Int16" Nullable="false" />
           <Property Name="RAZONSOCIAL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TELEFONO" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DIRECCION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CIUDAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ESTADO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ID_DIRECCION" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DIRECCION" Relationship="Self.SUCURSAL_DIRECCION_FK" FromRole="SUCURSAL" ToRole="DIRECCION" />
           <NavigationProperty Name="ORDENDECOMPRA" Relationship="Self.ORDENDECOMPRA_SUCURSAL_FK" FromRole="SUCURSAL" ToRole="ORDENDECOMPRA" />
         </EntityType>
-        <Association Name="APERTURACAJA_CAJA_FK">
-          <End Role="CAJA" Type="Self.CAJA" Multiplicity="1" />
-          <End Role="APERTURACAJA" Type="Self.APERTURACAJA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CAJA">
-              <PropertyRef Name="ID_CAJA" />
-            </Principal>
-            <Dependent Role="APERTURACAJA">
-              <PropertyRef Name="ID_CAJA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="APERTURACAJA_PERSONA_FK">
-          <End Role="PERSONA" Type="Self.PERSONA" Multiplicity="1" />
-          <End Role="APERTURACAJA" Type="Self.APERTURACAJA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PERSONA">
-              <PropertyRef Name="RUT_PERSONA" />
-            </Principal>
-            <Dependent Role="APERTURACAJA">
-              <PropertyRef Name="RUT_PERSONA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="CUADRATURA_APERTURACAJA_FK">
-          <End Role="APERTURACAJA" Type="Self.APERTURACAJA" Multiplicity="1" />
-          <End Role="CUADRATURA" Type="Self.CUADRATURA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="APERTURACAJA">
-              <PropertyRef Name="ID_APERTURA" />
-            </Principal>
-            <Dependent Role="CUADRATURA">
-              <PropertyRef Name="ID_APERTURA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="CUADRATURA_CAJA_FK">
           <End Role="CAJA" Type="Self.CAJA" Multiplicity="1" />
           <End Role="CUADRATURA" Type="Self.CUADRATURA" Multiplicity="*" />
@@ -1181,6 +1432,18 @@
             </Principal>
             <Dependent Role="PRODUCTO">
               <PropertyRef Name="ID_CATEGORIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DIRECCION_CIUDAD_FK">
+          <End Role="CIUDAD" Type="Self.CIUDAD" Multiplicity="1" />
+          <End Role="DIRECCION" Type="Self.DIRECCION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CIUDAD">
+              <PropertyRef Name="ID_CIUDAD" />
+            </Principal>
+            <Dependent Role="DIRECCION">
+              <PropertyRef Name="ID_CIUDAD" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1256,7 +1519,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="DISPONIBILIDADMESA_MESA_FK">
+        <Association Name="PROVEEDOR_DIRECCION_FK">
+          <End Role="DIRECCION" Type="Self.DIRECCION" Multiplicity="1" />
+          <End Role="PROVEEDOR" Type="Self.PROVEEDOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIRECCION">
+              <PropertyRef Name="ID_DIRECCION" />
+            </Principal>
+            <Dependent Role="PROVEEDOR">
+              <PropertyRef Name="ID_DIRECCION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SUCURSAL_DIRECCION_FK">
+          <End Role="DIRECCION" Type="Self.DIRECCION" Multiplicity="1" />
+          <End Role="SUCURSAL" Type="Self.SUCURSAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIRECCION">
+              <PropertyRef Name="ID_DIRECCION" />
+            </Principal>
+            <Dependent Role="SUCURSAL">
+              <PropertyRef Name="ID_DIRECCION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DISPOMESA_MESA_FK">
           <End Role="MESA" Type="Self.MESA" Multiplicity="1" />
           <End Role="DISPONIBILIDADMESA" Type="Self.DISPONIBILIDADMESA" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1268,7 +1555,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="DISPONIBILIDADMESA_RESERVA_FK">
+        <Association Name="DISPOMESA_RESERVA_FK">
           <End Role="RESERVA" Type="Self.RESERVA" Multiplicity="1" />
           <End Role="DISPONIBILIDADMESA" Type="Self.DISPONIBILIDADMESA" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1420,7 +1707,7 @@
               <PropertyRef Name="ID_ROL" />
             </Principal>
             <Dependent Role="PERSONA">
-              <PropertyRef Name="ROL_ID_ROL" />
+              <PropertyRef Name="ID_ROL" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1449,13 +1736,14 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="APERTURACAJA" EntityType="Self.APERTURACAJA" />
           <EntitySet Name="CAJA" EntityType="Self.CAJA" />
           <EntitySet Name="CATEGORIA" EntityType="Self.CATEGORIA" />
+          <EntitySet Name="CIUDAD" EntityType="Self.CIUDAD" />
           <EntitySet Name="CUADRATURA" EntityType="Self.CUADRATURA" />
           <EntitySet Name="DETALLEORDENCOMPRA" EntityType="Self.DETALLEORDENCOMPRA" />
           <EntitySet Name="DETALLEPEDIDO" EntityType="Self.DETALLEPEDIDO" />
           <EntitySet Name="DETALLERECETA" EntityType="Self.DETALLERECETA" />
+          <EntitySet Name="DIRECCION" EntityType="Self.DIRECCION" />
           <EntitySet Name="DISPONIBILIDADMESA" EntityType="Self.DISPONIBILIDADMESA" />
           <EntitySet Name="GARZON" EntityType="Self.GARZON" />
           <EntitySet Name="INSUMO" EntityType="Self.INSUMO" />
@@ -1473,18 +1761,6 @@
           <EntitySet Name="RESERVA" EntityType="Self.RESERVA" />
           <EntitySet Name="ROL" EntityType="Self.ROL" />
           <EntitySet Name="SUCURSAL" EntityType="Self.SUCURSAL" />
-          <AssociationSet Name="APERTURACAJA_CAJA_FK" Association="Self.APERTURACAJA_CAJA_FK">
-            <End Role="CAJA" EntitySet="CAJA" />
-            <End Role="APERTURACAJA" EntitySet="APERTURACAJA" />
-          </AssociationSet>
-          <AssociationSet Name="APERTURACAJA_PERSONA_FK" Association="Self.APERTURACAJA_PERSONA_FK">
-            <End Role="PERSONA" EntitySet="PERSONA" />
-            <End Role="APERTURACAJA" EntitySet="APERTURACAJA" />
-          </AssociationSet>
-          <AssociationSet Name="CUADRATURA_APERTURACAJA_FK" Association="Self.CUADRATURA_APERTURACAJA_FK">
-            <End Role="APERTURACAJA" EntitySet="APERTURACAJA" />
-            <End Role="CUADRATURA" EntitySet="CUADRATURA" />
-          </AssociationSet>
           <AssociationSet Name="CUADRATURA_CAJA_FK" Association="Self.CUADRATURA_CAJA_FK">
             <End Role="CAJA" EntitySet="CAJA" />
             <End Role="CUADRATURA" EntitySet="CUADRATURA" />
@@ -1496,6 +1772,10 @@
           <AssociationSet Name="PRODUCTO_CATEGORIA_FK" Association="Self.PRODUCTO_CATEGORIA_FK">
             <End Role="CATEGORIA" EntitySet="CATEGORIA" />
             <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+          </AssociationSet>
+          <AssociationSet Name="DIRECCION_CIUDAD_FK" Association="Self.DIRECCION_CIUDAD_FK">
+            <End Role="CIUDAD" EntitySet="CIUDAD" />
+            <End Role="DIRECCION" EntitySet="DIRECCION" />
           </AssociationSet>
           <AssociationSet Name="DETALLEOC_INSUMO_FK" Association="Self.DETALLEOC_INSUMO_FK">
             <End Role="INSUMO" EntitySet="INSUMO" />
@@ -1521,11 +1801,19 @@
             <End Role="RECETA" EntitySet="RECETA" />
             <End Role="DETALLERECETA" EntitySet="DETALLERECETA" />
           </AssociationSet>
-          <AssociationSet Name="DISPONIBILIDADMESA_MESA_FK" Association="Self.DISPONIBILIDADMESA_MESA_FK">
+          <AssociationSet Name="PROVEEDOR_DIRECCION_FK" Association="Self.PROVEEDOR_DIRECCION_FK">
+            <End Role="DIRECCION" EntitySet="DIRECCION" />
+            <End Role="PROVEEDOR" EntitySet="PROVEEDOR" />
+          </AssociationSet>
+          <AssociationSet Name="SUCURSAL_DIRECCION_FK" Association="Self.SUCURSAL_DIRECCION_FK">
+            <End Role="DIRECCION" EntitySet="DIRECCION" />
+            <End Role="SUCURSAL" EntitySet="SUCURSAL" />
+          </AssociationSet>
+          <AssociationSet Name="DISPOMESA_MESA_FK" Association="Self.DISPOMESA_MESA_FK">
             <End Role="MESA" EntitySet="MESA" />
             <End Role="DISPONIBILIDADMESA" EntitySet="DISPONIBILIDADMESA" />
           </AssociationSet>
-          <AssociationSet Name="DISPONIBILIDADMESA_RESERVA_FK" Association="Self.DISPONIBILIDADMESA_RESERVA_FK">
+          <AssociationSet Name="DISPOMESA_RESERVA_FK" Association="Self.DISPOMESA_RESERVA_FK">
             <End Role="RESERVA" EntitySet="RESERVA" />
             <End Role="DISPONIBILIDADMESA" EntitySet="DISPONIBILIDADMESA" />
           </AssociationSet>
@@ -1585,70 +1873,6 @@
             <End Role="PRODUCTO" EntitySet="PRODUCTO" />
             <End Role="RECETA" EntitySet="RECETA" />
           </AssociationSet>
-          <FunctionImport Name="PRO_CREAR_CATEGORIA">
-            <Parameter Name="CATE_ID" Mode="In" Type="Decimal" />
-            <Parameter Name="CATE_NOMBRE" Mode="In" Type="String" />
-            <Parameter Name="CATE_ESTADO" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="PRO_MODIFICAR_CATEGORIA">
-            <Parameter Name="CATE_ID" Mode="In" Type="Decimal" />
-            <Parameter Name="CATE_NOMBRE" Mode="In" Type="String" />
-            <Parameter Name="CATE_ESTADO" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="PRO_CREAR_INSUMO">
-            <Parameter Name="INS_ID" Mode="In" Type="Decimal" />
-            <Parameter Name="INS_NOMBRE" Mode="In" Type="String" />
-            <Parameter Name="INS_STOCK" Mode="In" Type="Decimal" />
-            <Parameter Name="INS_STOCKCR" Mode="In" Type="Decimal" />
-            <Parameter Name="INS_MEDIDA" Mode="In" Type="String" />
-            <Parameter Name="INS_ESTADO" Mode="In" Type="String" />
-            <Parameter Name="INS_DESC" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="PRO_MODIFICAR_INSUMO">
-            <Parameter Name="INS_ID" Mode="In" Type="Decimal" />
-            <Parameter Name="INS_NOMBRE" Mode="In" Type="String" />
-            <Parameter Name="INS_STOCK" Mode="In" Type="Decimal" />
-            <Parameter Name="INS_STOCKCR" Mode="In" Type="Decimal" />
-            <Parameter Name="INS_MEDIDA" Mode="In" Type="String" />
-            <Parameter Name="INS_ESTADO" Mode="In" Type="String" />
-            <Parameter Name="INS_DESC" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="PRO_CREAR_MESA">
-            <Parameter Name="MESA_ID" Mode="In" Type="Decimal" />
-            <Parameter Name="MESA_DESC" Mode="In" Type="String" />
-            <Parameter Name="MESA_ASIENTOS" Mode="In" Type="Decimal" />
-            <Parameter Name="MESA_ESTADO" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="PRO_MODIFICAR_MESA">
-            <Parameter Name="MESA_ID" Mode="In" Type="Decimal" />
-            <Parameter Name="MESA_DESC" Mode="In" Type="String" />
-            <Parameter Name="MESA_ASIENTOS" Mode="In" Type="Decimal" />
-            <Parameter Name="MESA_ESTADO" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="PRO_CREAR_PERSONA">
-            <Parameter Name="PER_RUT" Mode="In" Type="String" />
-            <Parameter Name="PER_NOMBRE" Mode="In" Type="String" />
-            <Parameter Name="PER_APELLIDO" Mode="In" Type="String" />
-            <Parameter Name="PER_CORREO" Mode="In" Type="String" />
-            <Parameter Name="PER_ESTADO" Mode="In" Type="String" />
-            <Parameter Name="PER_CONTRASENA" Mode="In" Type="String" />
-            <Parameter Name="PER_TELEFONO" Mode="In" Type="String" />
-            <Parameter Name="PER_ID_ROL" Mode="In" Type="Decimal" />
-          </FunctionImport>
-          <FunctionImport Name="PRO_MODIFICAR_PERSONA">
-            <Parameter Name="PER_RUT" Mode="In" Type="String" />
-            <Parameter Name="PER_NOMBRE" Mode="In" Type="String" />
-            <Parameter Name="PER_APELLIDO" Mode="In" Type="String" />
-            <Parameter Name="PER_CORREO" Mode="In" Type="String" />
-            <Parameter Name="PER_ESTADO" Mode="In" Type="String" />
-            <Parameter Name="PER_CONTRASENA" Mode="In" Type="String" />
-            <Parameter Name="PER_TELEFONO" Mode="In" Type="String" />
-            <Parameter Name="PER_ID_ROL" Mode="In" Type="Decimal" />
-          </FunctionImport>
-          <FunctionImport Name="TOP_PLATOS">
-            <Parameter Name="FINICIO" Mode="In" Type="String" />
-            <Parameter Name="FFIN" Mode="In" Type="String" />
-          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -1656,17 +1880,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
-          <EntitySetMapping Name="APERTURACAJA">
-            <EntityTypeMapping TypeName="Model.APERTURACAJA">
-              <MappingFragment StoreEntitySet="APERTURACAJA">
-                <ScalarProperty Name="ID_APERTURA" ColumnName="ID_APERTURA" />
-                <ScalarProperty Name="MONTO" ColumnName="MONTO" />
-                <ScalarProperty Name="FECHAYHORA" ColumnName="FECHAYHORA" />
-                <ScalarProperty Name="RUT_PERSONA" ColumnName="RUT_PERSONA" />
-                <ScalarProperty Name="ID_CAJA" ColumnName="ID_CAJA" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="CAJA">
             <EntityTypeMapping TypeName="Model.CAJA">
               <MappingFragment StoreEntitySet="CAJA">
@@ -1685,6 +1898,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="CIUDAD">
+            <EntityTypeMapping TypeName="Model.CIUDAD">
+              <MappingFragment StoreEntitySet="CIUDAD">
+                <ScalarProperty Name="ID_CIUDAD" ColumnName="ID_CIUDAD" />
+                <ScalarProperty Name="NOMBRECIUDAD" ColumnName="NOMBRECIUDAD" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="CUADRATURA">
             <EntityTypeMapping TypeName="Model.CUADRATURA">
               <MappingFragment StoreEntitySet="CUADRATURA">
@@ -1694,7 +1916,6 @@
                 <ScalarProperty Name="FECHA" ColumnName="FECHA" />
                 <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
                 <ScalarProperty Name="ID_CAJA" ColumnName="ID_CAJA" />
-                <ScalarProperty Name="ID_APERTURA" ColumnName="ID_APERTURA" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1733,6 +1954,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DIRECCION">
+            <EntityTypeMapping TypeName="Model.DIRECCION">
+              <MappingFragment StoreEntitySet="DIRECCION">
+                <ScalarProperty Name="ID_DIRECCION" ColumnName="ID_DIRECCION" />
+                <ScalarProperty Name="NOMBRECALLE" ColumnName="NOMBRECALLE" />
+                <ScalarProperty Name="NUMEROCALLE" ColumnName="NUMEROCALLE" />
+                <ScalarProperty Name="ID_CIUDAD" ColumnName="ID_CIUDAD" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="DISPONIBILIDADMESA">
             <EntityTypeMapping TypeName="Model.DISPONIBILIDADMESA">
               <MappingFragment StoreEntitySet="DISPONIBILIDADMESA">
@@ -1760,7 +1992,6 @@
                 <ScalarProperty Name="NOMBREINSUMO" ColumnName="NOMBREINSUMO" />
                 <ScalarProperty Name="STOCKACTUAL" ColumnName="STOCKACTUAL" />
                 <ScalarProperty Name="STOCKCRITICO" ColumnName="STOCKCRITICO" />
-                <ScalarProperty Name="UNIDAD_MEDIDA" ColumnName="UNIDAD_MEDIDA" />
                 <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
                 <ScalarProperty Name="DESCRIPCIONINSUMO" ColumnName="DESCRIPCIONINSUMO" />
               </MappingFragment>
@@ -1819,7 +2050,6 @@
           <EntitySetMapping Name="PAGO">
             <EntityTypeMapping TypeName="Model.PAGO">
               <MappingFragment StoreEntitySet="PAGO">
-                <ScalarProperty Name="FECHA_PAGO" ColumnName="FECHA_PAGO" />
                 <ScalarProperty Name="ID_PAGO" ColumnName="ID_PAGO" />
                 <ScalarProperty Name="MONTO" ColumnName="MONTO" />
                 <ScalarProperty Name="MEDIODEPAGO" ColumnName="MEDIODEPAGO" />
@@ -1833,7 +2063,6 @@
           <EntitySetMapping Name="PEDIDO">
             <EntityTypeMapping TypeName="Model.PEDIDO">
               <MappingFragment StoreEntitySet="PEDIDO">
-                <ScalarProperty Name="MINUTOSESPERA" ColumnName="MINUTOSESPERA" />
                 <ScalarProperty Name="ID_PEDIDO" ColumnName="ID_PEDIDO" />
                 <ScalarProperty Name="FECHAYHORA" ColumnName="FECHAYHORA" />
                 <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
@@ -1849,9 +2078,8 @@
           <EntitySetMapping Name="PEDIDOINDIVIDUAL">
             <EntityTypeMapping TypeName="Model.PEDIDOINDIVIDUAL">
               <MappingFragment StoreEntitySet="PEDIDOINDIVIDUAL">
-                <ScalarProperty Name="HORAENTREGA" ColumnName="HORAENTREGA" />
-                <ScalarProperty Name="HORAINICIO" ColumnName="HORAINICIO" />
                 <ScalarProperty Name="ID_PEDIDOINDIV" ColumnName="ID_PEDIDOINDIV" />
+                <ScalarProperty Name="FECHAYHORA" ColumnName="FECHAYHORA" />
                 <ScalarProperty Name="TOTALINDIV" ColumnName="TOTALINDIV" />
                 <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
                 <ScalarProperty Name="ID_PEDIDO" ColumnName="ID_PEDIDO" />
@@ -1869,7 +2097,7 @@
                 <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
                 <ScalarProperty Name="CONTRASENA" ColumnName="CONTRASENA" />
                 <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
-                <ScalarProperty Name="ROL_ID_ROL" ColumnName="ROL_ID_ROL" />
+                <ScalarProperty Name="ID_ROL" ColumnName="ID_ROL" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1892,9 +2120,8 @@
                 <ScalarProperty Name="RAZONSOCIAL" ColumnName="RAZONSOCIAL" />
                 <ScalarProperty Name="GIRO" ColumnName="GIRO" />
                 <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
-                <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
-                <ScalarProperty Name="CIUDAD" ColumnName="CIUDAD" />
                 <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="ID_DIRECCION" ColumnName="ID_DIRECCION" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1935,17 +2162,11 @@
                 <ScalarProperty Name="ID_SUSCURSAL" ColumnName="ID_SUSCURSAL" />
                 <ScalarProperty Name="RAZONSOCIAL" ColumnName="RAZONSOCIAL" />
                 <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
-                <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
-                <ScalarProperty Name="CIUDAD" ColumnName="CIUDAD" />
                 <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="ID_DIRECCION" ColumnName="ID_DIRECCION" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="PRO_CREAR_MESA" FunctionName="Model.Store.PKG_MESA_PRO_CREAR_MESA" />
-          <FunctionImportMapping FunctionImportName="PRO_MODIFICAR_MESA" FunctionName="Model.Store.PKG_MESA_PRO_MODIFICAR_MESA" />
-          <FunctionImportMapping FunctionImportName="PRO_CREAR_PERSONA" FunctionName="Model.Store.PKG_Persona_PRO_CREAR_PERSONA" />
-          <FunctionImportMapping FunctionImportName="PRO_MODIFICAR_PERSONA" FunctionName="Model.Store.PKG_Persona_PRO_MODIFICAR_PERSONA" />
-          <FunctionImportMapping FunctionImportName="TOP_PLATOS" FunctionName="Model.Store.TOP_PLATOS" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

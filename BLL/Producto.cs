@@ -1,8 +1,6 @@
-﻿using DAL;
-using Oracle.ManagedDataAccess.Client;
+﻿using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -75,8 +73,6 @@ namespace BLL
             this.dESCRIPCION = dESCRIPCION;
             this.iD_CATEGORIA = iD_CATEGORIA;
         }
-
-        
 
 
     }
