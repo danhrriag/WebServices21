@@ -12,19 +12,21 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class RECETA
+    public partial class APERTURACAJA
     {
-        public RECETA()
+        public APERTURACAJA()
         {
-            this.DETALLERECETA = new HashSet<DETALLERECETA>();
+            this.CUADRATURA = new HashSet<CUADRATURA>();
         }
     
-        public short ID_RECETA { get; set; }
-        public string PREPARACION { get; set; }
-        public string ESTADO { get; set; }
-        public int ID_PRODUCTO { get; set; }
+        public int ID_APERTURA { get; set; }
+        public decimal MONTO { get; set; }
+        public System.DateTime FECHAYHORA { get; set; }
+        public string RUT_PERSONA { get; set; }
+        public short ID_CAJA { get; set; }
     
-        public virtual ICollection<DETALLERECETA> DETALLERECETA { get; set; }
-        public virtual PRODUCTO PRODUCTO { get; set; }
+        public virtual CAJA CAJA { get; set; }
+        public virtual PERSONA PERSONA { get; set; }
+        public virtual ICollection<CUADRATURA> CUADRATURA { get; set; }
     }
 }
